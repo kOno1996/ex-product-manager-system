@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/student
+    username: postgres
+    password: postgres
+  messages:
+    basename: messages, ValidationMessages
+    cache-duration: -1
+    encoding: UTF-8
+  jmx:
+    default-domain: ex-emp
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+server:
+  servlet:
+    context-path: /ex-emp
