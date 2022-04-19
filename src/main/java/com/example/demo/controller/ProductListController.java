@@ -21,7 +21,7 @@ public class ProductListController {
 	private ProductListService productListService;
 	
 	@RequestMapping("")
-	public String index(Pageable pageable, Model model) {
+	public String index(@PageableDefault(size = 30)Pageable pageable, Model model) {
 		Page<Product> productList = productListService.showAll(pageable);
 		model.addAttribute("page", productList);
 		model.addAttribute("productList", productList.getContent());
@@ -29,7 +29,7 @@ public class ProductListController {
 	}
 	
 	@RequestMapping("/page")
-	public String page(Pageable pageable, Model model, Integer page) {
+	public String page(@PageableDefault(size = 30)Pageable pageable, Model model, Integer page) {
 		Page<Product> productList = productListService.showPage(pageable, page);
 		model.addAttribute("page", productList);
 		model.addAttribute("productList", productList.getContent());
