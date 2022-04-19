@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Product;
@@ -13,8 +14,12 @@ public class ProductListService {
 	@Autowired
 	private ProductListRepository productListRepository;
 	
-	public List<Product> showAll(){
-		return productListRepository.showAll();
+	public Page<Product> showAll(Pageable pageable){
+		return productListRepository.showAll(pageable);
+	}
+	
+	public Page<Product> showPage(Pageable pageable, Integer number){
+		return productListRepository.showPage(pageable, number);
 	}
 	
 }

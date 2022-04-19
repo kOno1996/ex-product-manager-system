@@ -92,8 +92,18 @@
     <div class="pages">
       <nav class="page-nav">
         <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+          <li class="previous" th:classappend="${page.first} ? 'hidden'">
+          	<a th:href="@{''(page=${page.number})}" class="page-link"
+          	th:tabindex="${page.last} ? -1" aria-label="Previous">
+          	<span aria-hidden="true">&larr; prev</span>
+          	</a>
+          </li>
+          <li class="next" th:classappend="${page.last} ? 'hidden'">
+          	<a th:href="@{''(page=${page.number + 2})}" class="page-link"
+          		th:tabindex="${page.last} ? -1" aria-label="Next">
+          		<span aria-hidden="true">next &rarr;</span> 
+          	</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -116,7 +126,7 @@
             <td class="item-price" th:text="${product.price}">product.price</td>
             <td class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
             <td class="item-brand"><a href="">product.brand</a></td>
-            <td class="item-condition">product.condition</td>
+            <td class="item-condition" th:text=${product.condition}>product.condition</td>
           </tr>
         </tbody>
       </table>
@@ -126,19 +136,29 @@
     <div class="pages">
       <nav class="page-nav">
         <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+          	<li class="previous" th:classappend="${page.first} ? 'hidden'">
+          		<a th:href="@{''(page=${page.number})}" class="page-link"
+          		th:tabindex="${page.first} ? -1" aria-label="Previous">
+          		<span aria-hidden="true">&larr; prev</span>
+          		</a>
+          	</li>
+          	<li class="next" th:classappend="${page.last} ? 'hidden'">
+          		<a th:href="@{''(page=${page.number + 2})}" class="page-link"
+					th:tabindex="${page.last} ? -1" aria-label="Next">
+					<span aria-hidden="true">next &rarr;</span>				
+				</a>
+			</li>
         </ul>
       </nav>
       <!-- ページ番号を指定して表示するフォーム -->
       <div id="select-page">
-        <form class="form-inline">
+        <form class="form-inline" th:action="@{/product-list}" method="post">
           <div class="form-group">
             <div class="input-group col-xs-6">
               <label></label>
-              <input type="text" class="form-control"/>
+              <input type="text" name="page" class="form-control"/>
               <!-- 総ページ数 -->
-              <div class="input-group-addon">/ 20</div>
+              <div class="input-group-addon" th:text="'/ ' + ${page.totalPages - 1}">/ 20</div>
             </div>
             <div class="input-group col-xs-1">
               <button type="submit" class="btn btn-default">Go</button>
