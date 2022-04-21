@@ -7,5 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/product")
 public class ProductAddController {
 	@RequestMapping("/add")
-	
+	public String add() {
+		return "list";
+	}
 }

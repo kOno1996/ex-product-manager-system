@@ -33,9 +33,22 @@ public class ProductListRepository {
 		return product;
 	};
 	
-	public Page<Product> showAll(Pageable pageable){
-		String sql = "SELECT * FROM items ORDER BY category LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
-		List<Product> productList = template.query(sql, PRODUCT_ROWMAPPER);
+	public Page<Product> showAll(Pageable pageable){		
+		//String sql = "SELECT * FROM items ORDER BY category LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT i.id, i.name, condition, brand, price, description, ");
+		sql.append("ca.id sho_id, ");
+		sql.append("ca.name sho_name, ");
+		sql.append("ca2.id chu_id, ");
+		sql.append("ca2.name chu_name, ");
+		sql.append("ca3.id dai_id, ");
+		sql.append("ca3.name dai_name ");
+		sql.append("FROM items AS i ");
+		sql.append("left join category AS ca on i.category = ca.id ");
+		sql.append("left join category AS ca2 on ca.parent = ca2.id ");
+		sql.append("left join category AS ca3 on ca2.parent = ca3.id");
+		
+		List<Product> productList = template.query(sql.toString(), PRODUCT_ROWMAPPER);
 		
 		String totalSql = "SELECT COUNT(*) FROM items";
 		int total = template.queryForObject(totalSql, new MapSqlParameterSource(), Integer.class);
