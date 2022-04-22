@@ -9,6 +9,13 @@ public class Product {
 	private Integer price;
 	private Integer shipping;
 	private String description;
+	private Integer daiId;
+	private String daiName;
+	private Integer chuId;
+	private String chuName;
+	private Integer shoId;
+	private String shoName;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -56,6 +63,42 @@ public class Product {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getDaiId() {
+		return daiId;
+	}
+	public void setDaiId(Integer daiId) {
+		this.daiId = daiId;
+	}
+	public String getDaiName() {
+		return daiName;
+	}
+	public void setDaiName(String daiName) {
+		this.daiName = daiName;
+	}
+	public Integer getChuId() {
+		return chuId;
+	}
+	public void setChuId(Integer chuId) {
+		this.chuId = chuId;
+	}
+	public String getChuName() {
+		return chuName;
+	}
+	public void setChuName(String chuName) {
+		this.chuName = chuName;
+	}
+	public Integer getShoId() {
+		return shoId;
+	}
+	public void setShoId(Integer shoId) {
+		this.shoId = shoId;
+	}
+	public String getShoName() {
+		return shoName;
+	}
+	public void setShoName(String shoName) {
+		this.shoName = shoName;
 	}
 	
 	

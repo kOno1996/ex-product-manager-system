@@ -43,7 +43,7 @@
   <div id="main" class="container-fluid">
     <!-- addItem link -->
     <div id="addItemButton">
-      <a class="btn btn-default" href="./add.html"><i class="fa fa-plus-square-o"></i> Add New Item</a>
+      <a class="btn btn-default" th:href="@{/product/toAdd}"><i class="fa fa-plus-square-o"></i> Add New Item</a>
     </div>
 
     <!-- 検索フォーム -->
@@ -124,8 +124,8 @@
           <tr th:each="product: ${productList}">
             <td class="item-name"><a href="./detail.html" th:text="${product.name}">product.name</a></td>
             <td class="item-price" th:text="${product.price}">product.price</td>
-            <td class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
-            <td class="item-brand"><a href="">product.brand</a></td>
+            <td class="item-category"><a href="" th:text="${product.daiName}">Electronics</a> / <a href="" th:text="${product.chuName}">Computers &amp; Tablets</a> / <a href="" th:text="${product.shoName}">Components &amp; Parts</a></td>
+            <td class="item-brand"><a href="" th:text="${product.brand}">product.brand</a></td>
             <td class="item-condition" th:text=${product.condition}>product.condition</td>
           </tr>
         </tbody>

@@ -21,7 +21,7 @@ public class ProductListController {
 	private ProductListService productListService;
 	
 	@RequestMapping("")
-	public String index(@PageableDefault(size = 30)Pageable pageable, Model model) {
+	public String index(@PageableDefault(size = 40)Pageable pageable, Model model) {
 		Page<Product> productList = productListService.showAll(pageable);
 		model.addAttribute("page", productList);
 		model.addAttribute("productList", productList.getContent());
@@ -29,15 +29,15 @@ public class ProductListController {
 	}
 	
 	@RequestMapping("/page")
-	public String page(@PageableDefault(size = 30)Pageable pageable, Model model, Integer page) {
+	public String page(@PageableDefault(size = 40)Pageable pageable, Model model, Integer page) {
 		Page<Product> productList = productListService.showPage(pageable, page);
 		model.addAttribute("page", productList);
 		model.addAttribute("productList", productList.getContent());
 		model.addAttribute("number", page);
 		if(page == null) {
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + "nullです" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			//System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + "nullです" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		}else {
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + "nullじゃない" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			//System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + "nullじゃない" + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		}
 		return "list";
 	}
