@@ -7,8 +7,29 @@ public class ProductAddForm {
 	private String brand;
 	private Integer condition;
 	private String description;
+	private String daiName;
+	private String chuName;
+	private String shoName;
 	public String getName() {
 		return name;
+	}
+	public String getDaiName() {
+		return daiName;
+	}
+	public void setDaiName(String daiName) {
+		this.daiName = daiName;
+	}
+	public String getChuName() {
+		return chuName;
+	}
+	public void setChuName(String chuName) {
+		this.chuName = chuName;
+	}
+	public String getShoName() {
+		return shoName;
+	}
+	public void setShoName(String shoName) {
+		this.shoName = shoName;
 	}
 	public void setName(String name) {
 		this.name = name;

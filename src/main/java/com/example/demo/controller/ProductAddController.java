@@ -31,6 +31,8 @@ public class ProductAddController {
 		List<Product> chuList = productAddService.chuName();
 		List<Product> shoList = productAddService.shoName();
 		model.addAttribute("daiList", daiList);
+		
+		//System.out.println("\n\n\n\n\n\n\n" + daiList.get(0) + "\n\n\n\n\n\n\n");
 		model.addAttribute("chuList", chuList);
 		model.addAttribute("shoList", shoList);
 		
@@ -43,11 +45,18 @@ public class ProductAddController {
 	}
 	
 	@RequestMapping("/add")
-	public String add(ProductAddForm productAddForm) {
+	public String add(ProductAddForm productAddForm, String daiName, String chuName, String shoName) {
 		Product product = new Product();
 		product.setName(productAddForm.getName());
 		product.setPrice(productAddForm.getPrice());
+		product.setDaiName(daiName);
+		product.setChuName(chuName);
+		product.setShoName(shoName);
+		product.setBrand(productAddForm.getBrand());
+		product.setCondition(productAddForm.getCondition());
+		product.setDescription(productAddForm.getDescription());
 		
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getDaiName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		return "list";
 	}
 }
