@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.example.demo.domain.Product;
 import com.example.demo.form.ProductAddForm;
@@ -49,7 +51,7 @@ public class ProductAddController {
 		Product product = new Product();
 		product.setName(productAddForm.getName());
 		product.setPrice(productAddForm.getPrice());
-		product.setDaiName(daiName);
+		product.setDaiName(productAddForm.getDaiName());
 		product.setChuName(chuName);
 		product.setShoName(shoName);
 		product.setBrand(productAddForm.getBrand());
@@ -57,6 +59,6 @@ public class ProductAddController {
 		product.setDescription(productAddForm.getDescription());
 		
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getDaiName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		return "list";
+		return "forward:/product-list";
 	}
 }

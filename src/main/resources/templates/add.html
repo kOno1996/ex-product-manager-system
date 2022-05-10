@@ -75,6 +75,7 @@
 				<div class="col-sm-8">
 					<select id="daiCategoryList" class="form-control">
 						<option selected>-- parentCategory --</option>
+						<option id="daiName" th:value="*{daiName}" th:field="*{daiName}"></option>
 						<!--<option th:each="dai: ${daiList}" th:text="${dai.daiName}">parentCategory1</option>-->
 					</select>
 				</div>
@@ -84,6 +85,7 @@
 				<div class="col-sm-8">
 					<select id="chuCategoryList" class="form-control">
 						<option>-- childCategory --</option>
+						<option id="chuName" th:value="*{chuName}" th:field="*{chuName}"></option>
 						<!--<option th:each="chu: ${chuList}" th:text="${chu.chuName}">childCategory1</option>-->
 					</select>
 				</div>
@@ -93,6 +95,7 @@
 				<div class="col-sm-8">
 					<select id="shoCategoryList" class="form-control">
 						<option>-- grandChild --</option>
+						<option id="shoName" th:value="*{shoName}" th:field="*{shoName}"></option>
 						<!--<option th:each="sho: ${shoList}" th:text="${sho.shoName}">grandChild1</option>-->
 					</select>
 				</div>
@@ -154,7 +157,11 @@
 			console.log(daiCategoryList)
 			//大カテゴリーをセット
 			$.each(daiCategoryList, function(index, value){
-				$('#daiCategoryList').append($('<option>').html(value.daiName).val(value.daiName));			
+				$('#daiCategoryList').append($('<option id="daiName" >').html(value.daiName).val(value.daiName));	
+				let d = document.getElementById('daiName');
+				d.setAttribute('name', 'daiName');
+				
+					
 			})
 			
 			//中カテゴリーをセット
