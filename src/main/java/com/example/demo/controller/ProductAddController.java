@@ -51,7 +51,7 @@ public class ProductAddController {
 		Product product = new Product();
 		product.setName(productAddForm.getName());
 		product.setPrice(productAddForm.getPrice());
-		product.setDaiName(productAddForm.getDaiName());
+		product.setDaiName(daiName);
 		product.setChuName(chuName);
 		product.setShoName(shoName);
 		product.setBrand(productAddForm.getBrand());

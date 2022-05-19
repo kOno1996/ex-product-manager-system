@@ -69,13 +69,21 @@
 					<span class="text-danger">error:may not be empty</span>
 				</div>
 			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<!-- category -->
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label">category</label>
 				<div class="col-sm-8">
 					<select id="daiCategoryList" class="form-control">
 						<option selected>-- parentCategory --</option>
-						<option id="daiName" th:value="*{daiName}" th:field="*{daiName}"></option>
 						<!--<option th:each="dai: ${daiList}" th:text="${dai.daiName}">parentCategory1</option>-->
 					</select>
 				</div>
@@ -147,49 +155,60 @@
 		</form>
 	</div>
 	<!--<script src="/addInterlocking.js"></script>-->
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:inline="javascript">
-		$(function(){
+		'use strict';
+		$(document).ready(function(){
 			let daiCategoryList = /*[[${daiList}]]*/
 			chuCategoryList = /*[[${chuList}]]*/
 			shoCategoryList = /*[[${shoList}]]*/
+			console.log(daiCategoryList);
+			
+			
+		})
 		
-			console.log(daiCategoryList)
+		
+		//console.log(daiCategoryList);
+	
+		//$(function(){
+			//let daiCategoryList = /*[[${daiList}]]*/
+			//chuCategoryList = /*[[${chuList}]]*/
+			//shoCategoryList = /*[[${shoList}]]*/
+		
+			//console.log(daiCategoryList)
 			//大カテゴリーをセット
-			$.each(daiCategoryList, function(index, value){
-				$('#daiCategoryList').append($('<option id="daiName" >').html(value.daiName).val(value.daiName));	
-				let d = document.getElementById('daiName');
-				d.setAttribute('name', 'daiName');
+			//$.each(daiCategoryList, function(index, value){
+				//$('#daiCategoryList').append(`<option name="daiName" value="${value.daiName}">`).html(value.daiName);	
 				
 					
-			})
+			//})
 			
 			//中カテゴリーをセット
-			$('#daiCategoryList').change(function(){
-				$('#chuCategoryList').prop('disabled', false);
-        		$('#chuCategoryList > option').remove();
-        		$('#shoCategoryList').prop('disabled', false);
-        		$('#shoCategoryList > option').remove();
-				$.each(chuCategoryList, function(index, value){
-					if($('#daiCategoryList').val() === value.daiName){
-						$('#chuCategoryList').append($('<option>').html(value.chuName).val(value.chuName));
-					}
-				})
-			})
+			//$('#daiCategoryList').change(function(){
+				//$('#chuCategoryList').prop('disabled', false);
+        		//$('#chuCategoryList > option').remove();
+        		//$('#shoCategoryList').prop('disabled', false);
+        		//$('#shoCategoryList > option').remove();
+				//$.each(chuCategoryList, function(index, value){
+					//if($('#daiCategoryList').val() === value.daiName){
+						//$('#chuCategoryList').append($('<option>').html(value.chuName).val(value.chuName));
+					//}
+				//})
+			//})
 			
 			//小カテゴリーをセット(中カテゴリを選択した際に変更される)
-			$('#chuCategoryList').change(function(){
-				$('#shoCategoryList').prop('disabled', false);
-				$('#shoCategoryList > option').remove();
-				$.each(shoCategoryList, function(index, value){
-					if($('#chuCategoryList').val() === value.chuName){
-						$('#shoCategoryList').append($('<option>').html(value.shoName).val(value.shoName));
-					}
-				})
-			})
+			//$('#chuCategoryList').change(function(){
+				//$('#shoCategoryList').prop('disabled', false);
+				//$('#shoCategoryList > option').remove();
+				//$.each(shoCategoryList, function(index, value){
+					//if($('#chuCategoryList').val() === value.chuName){
+						//$('#shoCategoryList').append($('<option>').html(value.shoName).val(value.shoName));
+					//}
+				//})
+			//})
 			
 			//console.log(chuCategoryList);
-		})
+		//})*/
 		
 	</script>
 </body>
