@@ -68,21 +68,12 @@
 					<input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
 					<span class="text-danger">error:may not be empty</span>
 				</div>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			</div>		
 			<!-- category -->
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label">category</label>
 				<div class="col-sm-8">
-					<select id="daiCategoryList" class="form-control">
+					<select id="daiCategoryList" name="daiName" class="form-control">
 						<option selected>-- parentCategory --</option>
 						<!--<option th:each="dai: ${daiList}" th:text="${dai.daiName}">parentCategory1</option>-->
 					</select>
@@ -91,9 +82,8 @@
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
-					<select id="chuCategoryList" class="form-control">
+					<select id="chuCategoryList" name="chuName" class="form-control">
 						<option>-- childCategory --</option>
-						<option id="chuName" th:value="*{chuName}" th:field="*{chuName}"></option>
 						<!--<option th:each="chu: ${chuList}" th:text="${chu.chuName}">childCategory1</option>-->
 					</select>
 				</div>
@@ -101,9 +91,8 @@
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
-					<select id="shoCategoryList" class="form-control">
+					<select id="shoCategoryList" name="shoName" class="form-control">
 						<option>-- grandChild --</option>
-						<option id="shoName" th:value="*{shoName}" th:field="*{shoName}"></option>
 						<!--<option th:each="sho: ${shoList}" th:text="${sho.shoName}">grandChild1</option>-->
 					</select>
 				</div>
@@ -158,57 +147,47 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:inline="javascript">
 		'use strict';
+		
+			
+		//console.log(daiCategoryList);
 		$(document).ready(function(){
 			let daiCategoryList = /*[[${daiList}]]*/
-			chuCategoryList = /*[[${chuList}]]*/
-			shoCategoryList = /*[[${shoList}]]*/
-			console.log(daiCategoryList);
+			
+			//大カテゴリーを表示
+			$.each(daiCategoryList, function(index, value){
+				const DAINAME = /*[[*{daiName}]]*/
+				$('#daiCategoryList').append(`<option name="daiName" value="${value.daiId}" field="*{daiName}">${value.daiName}</option>`);
+			})
+			
+			//中カテゴリーを表示
+			let chuCategoryList = /*[[${chuList}]]*/
+			console.log(chuCategoryList)
+			$('#daiCategoryList').change(function(){ 
+				$('#chuCategoryList > option').remove();
+				$.each(chuCategoryList, function(index, value){
+					if(String(value.chuId) === $('#daiCategoryList').val()){
+										
+						$('#chuCategoryList').append(`<option name="chuName" value="${value.chuName}"　th:field="*{chuName}">${value.chuName}</option>`);
+					}
+				})
+			})	
+			
+			//小カテゴリーを表示
+			let shoCategoryList = /*[[${shoList}]]*/
+			//console.log(shoCategoryList)
+			$('#chuCategoryList').change(function(){
+				console.log($('#chuCategoryList').text())
+				$('#shoCategoryList > option').remove();
+				$.each(shoCategoryList, function(index, value){
+					
+					if($('#chuCategoryList').val() === value.chuName && String(value.daiId) === $('#daiCategoryList').val()){
+						$('#shoCategoryList').append(`<option name="shoName" value="${value.shoId}">${value.shoName}</option>`);
+					}
+				})
+			})
 			
 			
 		})
-		
-		
-		//console.log(daiCategoryList);
-	
-		//$(function(){
-			//let daiCategoryList = /*[[${daiList}]]*/
-			//chuCategoryList = /*[[${chuList}]]*/
-			//shoCategoryList = /*[[${shoList}]]*/
-		
-			//console.log(daiCategoryList)
-			//大カテゴリーをセット
-			//$.each(daiCategoryList, function(index, value){
-				//$('#daiCategoryList').append(`<option name="daiName" value="${value.daiName}">`).html(value.daiName);	
-				
-					
-			//})
-			
-			//中カテゴリーをセット
-			//$('#daiCategoryList').change(function(){
-				//$('#chuCategoryList').prop('disabled', false);
-        		//$('#chuCategoryList > option').remove();
-        		//$('#shoCategoryList').prop('disabled', false);
-        		//$('#shoCategoryList > option').remove();
-				//$.each(chuCategoryList, function(index, value){
-					//if($('#daiCategoryList').val() === value.daiName){
-						//$('#chuCategoryList').append($('<option>').html(value.chuName).val(value.chuName));
-					//}
-				//})
-			//})
-			
-			//小カテゴリーをセット(中カテゴリを選択した際に変更される)
-			//$('#chuCategoryList').change(function(){
-				//$('#shoCategoryList').prop('disabled', false);
-				//$('#shoCategoryList > option').remove();
-				//$.each(shoCategoryList, function(index, value){
-					//if($('#chuCategoryList').val() === value.chuName){
-						//$('#shoCategoryList').append($('<option>').html(value.shoName).val(value.shoName));
-					//}
-				//})
-			//})
-			
-			//console.log(chuCategoryList);
-		//})*/
 		
 	</script>
 </body>

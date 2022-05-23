@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,7 @@ public class ProductAddRepository {
 		//product.setChuName(rs.getString("chu_name"));
 		//product.setDaiId(rs.getInt("dai_id"));
 		product.setDaiName(rs.getString("dai_name"));
+		product.setDaiId(rs.getInt("dai_id"));
 		return product;
 	};
 	
@@ -39,6 +41,7 @@ public class ProductAddRepository {
 		Product product = new Product();
 		product.setDaiName(rs.getString("dai_name"));
 		product.setChuName(rs.getString("chu_name"));
+		product.setChuId(rs.getInt("chu_parent"));
 		return product;
 	};
 	
@@ -46,18 +49,16 @@ public class ProductAddRepository {
 		Product product = new Product();
 		product.setChuName(rs.getString("chu_name"));
 		product.setShoName(rs.getString("sho_name"));
+		product.setShoId(rs.getInt("sho_id"));
+		product.setDaiId(rs.getInt("dai_id"));
 		return product;
 	};
 	
-	public static final RowMapper<Product> PRODUCT_ROWMAPPER = (rs, i)->{
-		Product product = new Product();
-		return product;
-	};
 	
 	public List<Product> daiName(){
 		StringBuilder sql = new StringBuilder();
 		//sql.append("SELECT ca.name sho_name, ca2.name chu_name, ca3.name dai_name ");
-		sql.append("SELECT DISTINCT ca3.name dai_name ");
+		sql.append("SELECT DISTINCT ca3.name dai_name, ca3.id dai_id ");
 		sql.append("FROM items AS i ");
 		sql.append("left join category AS ca ON i.category = ca.id ");
 		sql.append("left join category AS ca2 ON ca.parent = ca2.id ");
@@ -68,7 +69,7 @@ public class ProductAddRepository {
 	
 	public List<Product> chuName(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT DISTINCT ca2.name chu_name, ca3.name dai_name ");
+		sql.append("SELECT DISTINCT ca2.name chu_name, ca2.parent chu_parent, ca3.name dai_name ");
 		sql.append("FROM items as i ");
 		sql.append("left join category as ca on i.category = ca.id ");
 		sql.append("left join category as ca2 on ca.parent = ca2.id ");
@@ -79,7 +80,7 @@ public class ProductAddRepository {
 	
 	public List<Product> shoName(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT DISTINCT ca.name sho_name, ca2.name chu_name ");
+		sql.append("SELECT DISTINCT ca.name sho_name, ca.id sho_id, ca2.name chu_name, ca3.id dai_id ");
 		sql.append("FROM items as i ");
 		sql.append("left join category as ca on i.category = ca.id ");
 		sql.append("left join category as ca2 on ca.parent = ca2.id ");
@@ -90,5 +91,13 @@ public class ProductAddRepository {
 	
 	public void add(Product product) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(product);
+		StringBuilder totalSql = new StringBuilder();
+		totalSql.append("SELECT COUNT(*) FROM items");
+		int total = template.queryForObject(totalSql.toString(), new MapSqlParameterSource(), Integer.class);
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO items VALUES(");
+		sql.append(total + 1 + ", ");
+		sql.append(":name, :condition, :category, :brand, :price, 0, :description)");
+		template.update(sql.toString(), param);
 	}
 }

@@ -15,7 +15,21 @@ public class Product {
 	private String chuName;
 	private Integer shoId;
 	private String shoName;
+	private Integer chuParent;
+	private String categoryName;
 	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public Integer getChuParent() {
+		return chuParent;
+	}
+	public void setChuParent(Integer chuParent) {
+		this.chuParent = chuParent;
+	}
 	public Integer getId() {
 		return id;
 	}

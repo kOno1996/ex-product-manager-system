@@ -24,4 +24,8 @@ public class ProductAddService {
 	public List<Product> shoName(){
 		return productAddRepository.shoName();
 	}
+	
+	public void addProduct(Product product) {
+		productAddRepository.add(product);
+	}
 }

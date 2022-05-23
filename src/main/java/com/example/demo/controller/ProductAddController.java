@@ -54,11 +54,16 @@ public class ProductAddController {
 		product.setDaiName(daiName);
 		product.setChuName(chuName);
 		product.setShoName(shoName);
+		product.setCategory(Integer.parseInt(shoName));
 		product.setBrand(productAddForm.getBrand());
 		product.setCondition(productAddForm.getCondition());
 		product.setDescription(productAddForm.getDescription());
 		
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getDaiName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getDaiName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getChuName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n" + product.getShoName() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		productAddService.addProduct(product);
+		
 		return "forward:/product-list";
 	}
 }

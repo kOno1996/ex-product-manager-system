@@ -122,7 +122,7 @@
         </thead>
         <tbody>
           <tr th:each="product: ${productList}">
-            <td class="item-name"><a href="./detail.html" th:text="${product.name}">product.name</a></td>
+            <td class="item-name"><a th:href="@{'/product/detail?id=' + ${product.id}}" th:text="${product.name}">product.name</a></td>
             <td class="item-price" th:text="${product.price}">product.price</td>
             <td class="item-category"><a href="" th:text="${product.daiName}">Electronics</a> / <a href="" th:text="${product.chuName}">Computers &amp; Tablets</a> / <a href="" th:text="${product.shoName}">Components &amp; Parts</a></td>
             <td class="item-brand"><a href="" th:text="${product.brand}">product.brand</a></td>
