@@ -46,25 +46,25 @@
 
 	<!-- details -->
 	<div id="input-main" class="container">
-		<a type="button" class="btn btn-default" th:href="@{'/product/detail?id=' + ${session.productList.id}}"><i
+		<a type="button" class="btn btn-default" th:href="@{'/product/detail?id=' + ${editProduct.id}}"><i
 				class="fa fa-reply"></i> back</a>
 		<h2>Edit</h2>
 
 		<!-- edit form -->
-		<form th:action="@{/product/update}" method="POST" class="form-horizontal" th:object="${productEditForm}">
+		<form th:action="@{'/product/update?id=' + ${editProduct.id}}" method="POST" class="form-horizontal" th:object="${productEditForm}">
 			<!-- name -->
 			<div class="form-group">
 				<label for="inputName" class="col-sm-2 control-label">name</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="inputName" th:value="${session.productList.name}"
-						name="name" th:field="*{name}"/>
+					<input type="text" class="form-control" id="inputName" th:field="*{name}"
+						name="name" />
 				</div>
 			</div>
 			<!-- price -->
 			<div class="form-group">
 				<label for="price" class="col-sm-2 control-label">price</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="price" th:value="${session.productList.price}"
+					<input type="text" class="form-control" id="price"
 						name="price" th:field="*{price}"/>
 				</div>
 			</div>
@@ -73,8 +73,7 @@
 				<label for="category" class="col-sm-2 control-label">category</label>
 				<div class="col-sm-8">
 					<select id="daiCategoryList" name="daiName" class="form-control">
-						<option value="${session.productList.daiName}"><span
-								th:text="${session.productList.daiName}"></span></option>
+						<option th:value="${editProduct.daiId}"><span th:text="${editProduct.daiName}"></span></option>
 						<!--<option>parentCategory1</option>
               <option>parentCategory2</option>
               <option>parentCategory3</option>
@@ -87,7 +86,7 @@
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
 					<select id="chuCategoryList" name="chuName" class="form-control">
-						<option><span th:text="${session.productList.chuName}"></span></option>
+						<option th:value="${editProduct.chuId}"><span th:text="${editProduct.chuName}"></span></option>
 						<!--<option>childCategory1</option>
               <option>childCategory2</option>
               <option>childCategory3</option>
@@ -100,7 +99,7 @@
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
 					<select id="shoCategoryList" name="shoName" class="form-control">
-						<option><span th:text="${session.productList.shoName}"></span></option>
+						<option th:value="${editProduct.shoId}"><span th:text="${editProduct.shoName}"></span></option>
 						<!--<option>grandChild1</option>
               <option>grandChild2</option>
               <option>grandChild3</option>
@@ -114,7 +113,7 @@
 				<label for="brand" class="col-sm-2 control-label">brand</label>
 				<div class="col-sm-8">
 					<input type="text" id="brand" class="form-control" name="brand"
-						th:value="${session.productList.brand}" />
+						th:field="*{brand}" />
 				</div>
 			</div>
 			<!-- condition -->
@@ -122,13 +121,13 @@
 				<label for="condition" class="col-sm-2 control-label">condition</label>
 				<div class="col-sm-8">
 					<label for="condition1" class="radio-inline">
-						<input type="radio" name="condition" id="condition1" value="1" /> 1
+						<input type="radio" th:field="*{condition}" id="condition1" value="1" /> 1
 					</label>
 					<label for="condition2" class="radio-inline">
-						<input type="radio" name="condition" id="condition2" value="2" /> 2
+						<input type="radio" th:field="*{condition}" id="condition2" value="2" /> 2
 					</label>
 					<label for="condition3" class="radio-inline">
-						<input type="radio" name="condition" id="condition3" value="3" /> 3
+						<input type="radio" th:field="*{condition}" id="condition3" value="3" /> 3
 					</label>
 				</div>
 			</div>
@@ -137,7 +136,7 @@
 				<label for="description" class="col-sm-2 control-label">description</label>
 				<div class="col-sm-8">
 					<textarea name="description" id="description" class="form-control" rows="5"
-						th:text="${session.productList.description}"></textarea>
+						th:field="*{description}"></textarea>
 				</div>
 			</div>
 			<!-- submit button -->
@@ -153,7 +152,7 @@
 		'use strict';
 		$(document).ready(function () {
 			let daiCategoryList = /*[[${daiCategoryList}]]*/'';
-			let getDaiCategory = /*[[${session.productList.daiName}]]*/'';
+		
 			//console.log(daiCategoryList)
 			//console.log(getDaiCategory);
 			$.each(daiCategoryList, function (index, value) {
@@ -164,7 +163,7 @@
 
 			//中カテゴリを登録
 			let chuCategoryList = /*[[${chuCategoryList}]]*/'';
-			let getChuCategory = /*[[${session.productList.chuName}]]*/
+		
 				//console.log(chuCategoryList)
 				//console.log(getChuCategory);
 			$('#daiCategoryList').change(function () {

@@ -22,7 +22,7 @@ public class ProductDetailController {
 	public String detail(int id, Model model) {
 		Product productList = productDetailRepository.detail(id);
 		//System.out.println(productList.getCategoryName());
-		session.setAttribute("productList", productList);
+		model.addAttribute("productList", productList);
 		return "detail";
 	}
 }

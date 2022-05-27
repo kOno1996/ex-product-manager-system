@@ -25,4 +25,11 @@ public class ProductEditService {
 	public List<Product> editShoCategory(){
 		return productEditRepository.editShoCategory();
 	}
+	
+	public Product editProduct(int id) {
+		return productEditRepository.editProduct(id);
+	}
+	public void editUpdate(int id, Product product) {
+		productEditRepository.editUpdate(id, product);
+	}
 }

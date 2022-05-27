@@ -91,12 +91,12 @@ public class ProductAddRepository {
 	
 	public void add(Product product) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(product);
-		StringBuilder totalSql = new StringBuilder();
-		totalSql.append("SELECT COUNT(*) FROM items");
-		int total = template.queryForObject(totalSql.toString(), new MapSqlParameterSource(), Integer.class);
+		//StringBuilder totalSql = new StringBuilder();
+		//totalSql.append("SELECT COUNT(*) FROM items");
+		//int total = template.queryForObject(totalSql.toString(), new MapSqlParameterSource(), Integer.class);
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO items VALUES(");
-		sql.append(total + 1 + ", ");
+		sql.append("INSERT INTO items(name, condition, category, brand, price, shipping, description) VALUES(");
+		//sql.append(total + 1 + ", ");
 		sql.append(":name, :condition, :category, :brand, :price, 0, :description)");
 		template.update(sql.toString(), param);
 	}
