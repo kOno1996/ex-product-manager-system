@@ -1,10 +1,19 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+
 public class User {
 	private Integer id;
 	private String name;
 	private String password;
 	private Integer authority;
+	
+	public User() {}
+	
+	
 	public Integer getId() {
 		return id;
 	}

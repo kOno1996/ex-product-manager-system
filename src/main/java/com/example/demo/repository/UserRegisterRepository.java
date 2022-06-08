@@ -28,15 +28,15 @@ public class UserRegisterRepository {
 	
 	public void userInsert(User user) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
-		String sql = "INSERT INTO users(name, password) VALUES(:name, :password)";
+		String sql = "INSERT INTO users(name, password, authority) VALUES(:name, :password, :authority)";
 		template.update(sql, param);
 	}
 	
-	public User login(String email, String password) {
+	public User login(String name) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM user WHERE email =:email AND password=:password");
+		sql.append("SELECT * FROM users WHERE name =:name");
 		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", password);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
 		List<User> user =  template.query(sql.toString(), param, USER_ROWMAPPER);
 		
 		return user.get(0);

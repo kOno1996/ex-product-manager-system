@@ -4,6 +4,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,10 @@ public final class UserRegisterController {
 	@Autowired
 	private UserRegisterService userRegisterService;
 	
+	//パスワードをハッシュ化しておく
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@ModelAttribute
 	public UserForm setUpUserForm() {
 		return new UserForm();
@@ -37,7 +42,8 @@ public final class UserRegisterController {
 	public String register(UserForm userForm) {
 		User user = new User();
 		user.setName(userForm.getName());
-		user.setPassword(userForm.getPassword());
+		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+		user.setAuthority(1);
 		userRegisterService.userInsert(user);
 		return "login";
 	}
