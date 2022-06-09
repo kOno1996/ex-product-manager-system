@@ -51,14 +51,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		//cssも含めてユーザ認証済みであることが条件となっているのでログイペ―ジが表示されたときにcssが適応されない問題がでる：antMatchersでcssは認証なしでも表示できるよう許可している
 		.antMatchers("/user/**").permitAll()
-		.antMatchers("/login").permitAll()
+		.antMatchers("/signin").permitAll()
 		.antMatchers("/product/**").permitAll()
+		.antMatchers("/product-list/**").permitAll()
+		
 		
 		//anyRequest, authenticated(全てのリクエストに対して認証済みであることを要求している)=>ログインしていないとこのwebアプリケーション配下のリソースにはアクセスできないという設定をしている
 		.anyRequest().authenticated();
 		
 		http
-		.formLogin().loginProcessingUrl("/product-list").loginPage("/login")
+		.formLogin().loginProcessingUrl("/login").loginPage("/signin")
 		//ログインページでユーザは認証されていない状態なのでpermitAllメソッドで全ての認証を許可している
 		.usernameParameter("name").passwordParameter("password").permitAll()
 		.defaultSuccessUrl("/product-list", true)

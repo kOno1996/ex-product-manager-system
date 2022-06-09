@@ -22,4 +22,7 @@ public class ProductListService {
 		return productListRepository.showPage(pageable, number);
 	}
 	
+	public Page<Product> daiCategoryPage(Pageable pageable, int daiId){
+		return productListRepository.daiCategoryPage(pageable, daiId);
+	}
 }

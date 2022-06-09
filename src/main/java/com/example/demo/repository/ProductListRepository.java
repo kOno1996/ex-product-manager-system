@@ -33,6 +33,9 @@ public class ProductListRepository {
 		product.setShoName(rs.getString("sho_name"));
 		product.setChuName(rs.getString("chu_name"));
 		product.setDaiName(rs.getString("dai_name"));
+		product.setShoId(rs.getInt("sho_id"));
+		product.setChuId(rs.getInt("chu_id"));
+		product.setDaiId(rs.getInt("dai_id"));
 		return product;
 	};
 	
@@ -40,11 +43,11 @@ public class ProductListRepository {
 		//String sql = "SELECT * FROM items ORDER BY category LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT i.id, i.name, condition, brand, price, shipping, description, ");
-		//sql.append("ca.id sho_id, ");
+		sql.append("ca.id sho_id, ");
 		sql.append("ca.name sho_name, ");
-		//sql.append("ca2.id chu_id, ");
+		sql.append("ca2.id chu_id, ");
 		sql.append("ca2.name chu_name, ");
-		//sql.append("ca3.id dai_id, ");
+		sql.append("ca3.id dai_id, ");
 		sql.append("ca3.name dai_name ");
 		sql.append("FROM items AS i ");
 		sql.append("left join category AS ca on i.category = ca.id ");
@@ -68,6 +71,32 @@ public class ProductListRepository {
 		
 		String totalSql = "SELECT COUNT(*) FROM items";
 		int total = template.queryForObject(totalSql, new MapSqlParameterSource(), Integer.class);
+		return new PageImpl<Product>(productList, pageable, total);
+	}
+	
+	public Page<Product> daiCategoryPage(Pageable pageable, int daiId){
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT i.id, i.name, condition, brand, price, shipping, description, ");
+		sql.append("ca.id sho_id, ");
+		sql.append("ca.name sho_name, ");
+		sql.append("ca2.id chu_id, ");
+		sql.append("ca2.name chu_name, ");
+		sql.append("ca3.id dai_id, ");
+		sql.append("ca3.name dai_name ");
+		sql.append("FROM items AS i ");
+		sql.append("left join category AS ca on i.category = ca.id ");
+		sql.append("left join category AS ca2 on ca.parent = ca2.id ");
+		sql.append("left join category AS ca3 on ca2.parent = ca3.id ");
+		sql.append("WHERE ca3.id=:daiId ");
+		sql.append("LIMIT " + pageable.getPageSize() + "OFFSET " + pageable.getOffset());
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("daiId", daiId);
+		List<Product> productList = template.query(sql.toString(), param, PRODUCT_ROWMAPPER);
+		
+		String totalSql = "SELECT COUNT(*) FROM items AS i LEFT JOIN category AS ca on i.category = ca.id LEFT JOIN category AS ca2 ON ca.parent = ca2.id ";
+		totalSql = totalSql + "LEFT JOIN category AS ca3 ON ca2.parent = ca3.id WHERE ca3.id=:daiId";
+		
+		int total = template.queryForObject(totalSql, new MapSqlParameterSource().addValue("daiId", daiId), Integer.class);
 		return new PageImpl<Product>(productList, pageable, total);
 	}
 }
