@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/signin").permitAll()
 		.antMatchers("/product/**").permitAll()
 		.antMatchers("/product-list/**").permitAll()
+		.antMatchers("/buy/mail").permitAll()
 		
 		
 		//anyRequest, authenticated(全てのリクエストに対して認証済みであることを要求している)=>ログインしていないとこのwebアプリケーション配下のリソースにはアクセスできないという設定をしている
