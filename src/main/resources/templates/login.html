@@ -29,7 +29,7 @@
       <div class="panel-heading">Login</div>
       <div class="panel-body">
         <p class="text-danger">error:failed to login</p>
-        <form th:action="@{/product-list}" method="POST">
+        <form th:action="@{/login}" method="POST">
         	 <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger"></p>
           <div class="form-group">
          
