@@ -15,7 +15,7 @@ import com.example.demo.form.ProductEditForm;
 import com.example.demo.service.ProductEditService;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/edit")
 public class ProductEditController {
 	@Autowired
 	private ProductEditService productEditService;
@@ -29,7 +29,7 @@ public class ProductEditController {
 		return new ProductEditForm();
 	}
 	
-	@RequestMapping("/edit")
+	@RequestMapping("/page")
 	public String edit(ProductEditForm productEditForm, Model model, int id) {
 		
 		//System.out.println(id);

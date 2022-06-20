@@ -56,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/product-list/**").permitAll()
 		//.antMatchers("/buy/mail").permitAll()
 		.and().authorizeRequests().antMatchers("/buy/**").hasRole("USER")
+		.and().authorizeRequests().antMatchers("/edit/**").hasRole("ADMIN")
 		
 		//anyRequest, authenticated(全てのリクエストに対して認証済みであることを要求している)=>ログインしていないとこのwebアプリケーション配下のリソースにはアクセスできないという設定をしている
 		.anyRequest().authenticated();
@@ -65,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//ログインページでユーザは認証されていない状態なのでpermitAllメソッドで全ての認証を許可している
 		.usernameParameter("name").passwordParameter("password").permitAll()
 		.defaultSuccessUrl("/product-list", true)
-		.and().logout().logoutUrl("/logout")
+		.and().logout().logoutSuccessUrl("/signin")
 		.invalidateHttpSession(true)
 		//クッキーを削除する
 		.deleteCookies("JSESSIONID");
