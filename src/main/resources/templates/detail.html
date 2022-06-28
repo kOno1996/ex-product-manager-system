@@ -90,6 +90,8 @@
 					class="fa fa-pencil-square-o"></i>&nbsp;edit</a>
 			<a sec:authorize="hasRole('USER')" type="button" class="btn btn-default" th:href="@{/buy/mail}"><i
 					class="fa fa-pencil-square-o"></i>&nbsp;buy</a>		
+			<a sec:authorize="hasRole('USER')" type="button" class="btn btn-default" th:href="@{'/bookmark/register?id=' + ${productList.id}}"><i
+					class="fa fa-pencil-square-o"></i>&nbsp;bookmark</a>			
 		</div>
 	</div>
 	
