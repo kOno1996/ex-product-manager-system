@@ -46,4 +46,22 @@ public class ProductBookmarkRepository {
 		
 		return template.query(sql, PRODUCT_ROW_MAPPER);
 	}
+	
+	public void delete(int id) {
+		String sql = "DELETE FROM bookmark WHERE items_id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql, param);
+		
+	}
+	
+	public boolean isBookmarkList(int id) {
+		String sql = "SELECT id, name, price FROM bookmark WHERE items_id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		List<Product> productList = template.query(sql, param, PRODUCT_ROW_MAPPER);
+		if(productList.size() == 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

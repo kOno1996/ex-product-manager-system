@@ -17,11 +17,18 @@ public class ProductBookmarkController {
 	private ProductBookmarkService productBookmarkService;
 	
 	@RequestMapping("/register")
-	public String Register(int id) {
+	public String Register(int id, Model model) {
+		boolean isEmptyBookmark = productBookmarkService.isBookmarkList(id);
+		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + isEmptyBookmark);
 		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + id + "\n\n\n\n\n\n\n\n\n\n\n");
-		Product product = productBookmarkService.getProduct(id);
-		productBookmarkService.productRegisterService(product);
-		return "forward:/product-list";
+		if(isEmptyBookmark == true) {
+			Product product = productBookmarkService.getProduct(id);
+			productBookmarkService.productRegisterService(product);
+		}else {
+			model.addAttribute("bookmarkText", "既にお気に入り登録されています。");
+		}
+		
+		return "forward:/bookmark/list";
 	}
 	
 	@RequestMapping("/list")
@@ -29,5 +36,12 @@ public class ProductBookmarkController {
 		List<Product> bookmarkList = productBookmarkService.getBookmarkList();
 		model.addAttribute("bookmarkList", bookmarkList);
 		return "bookmark";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(int id) {
+		productBookmarkService.delete(id);
+		//System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + id);
+		return "forward:/bookmark/list";
 	}
 }

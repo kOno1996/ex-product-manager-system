@@ -24,4 +24,12 @@ public class ProductBookmarkService {
 	public List<Product> getBookmarkList(){
 		return productBookmarkRepository.getBookmarkList();
 	}
+	
+	public void delete(int id) {
+		productBookmarkRepository.delete(id);
+	}
+	
+	public boolean isBookmarkList(int id) {
+		return productBookmarkRepository.isBookmarkList(id);
+	}
 }
